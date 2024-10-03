@@ -1,0 +1,45 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Forgery Detection</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Image Forgery Detection</h1>
+        
+        <form action="/predict" method="post" enctype="multipart/form-data">
+            <input type="file" name="file" accept="image/*">
+            <input type="submit" value="Upload">
+        </form>
+
+        {% if file_path %}
+            <div class="image-container">
+                <h2>Uploaded Image:</h2>
+                <img src="{{ url_for('uploaded_file', filename=filename) }}" alt="Uploaded Image" class="uploaded-image">
+            </div>
+            <div class="image-container">
+                <h2>Rasterized Image:</h2>
+                <img src="{{ url_for('raster_file', filename=filename) }}" alt="Raster Image" class="raster-image">
+            </div>
+        {% endif %}
+
+        {% if svm_prediction and vgg_prediction %}
+        <div class="predictions">
+            <h2>Predictions:</h2>
+            <!--<p><strong>SVM Prediction:</strong> {{ svm_prediction }}</p>-->
+            <p><strong><h1>{{ vgg_prediction }}</h1></strong></p>
+        </div>
+        {% endif %}
+    </div>
+    <footer>
+        &copy; 2024 Image Forgery Detection. All rights reserved.
+    </footer>
+</body>
+</html>
+
+
+
